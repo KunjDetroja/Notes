@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% block title %}
+Home
+{% endblock title %}
+{% block body %}
+
+
+
+<div class="container my-3">
+    <h2>Add Notes</h2>
+    <form action="/" method="POST">
+        <div class="mb-3">
+            <label for="title" class="form-label">Note Title</label>
+            <input type="text" class="form-control" name="title" id="title" aria-describedby="emailHelp">
+        </div>
+        <div class="mb-3">
+            <label for="desc" class="form-label">Note Description</label>
+            <input type="text" class="form-control" name="desc" id="desc">
+        </div>
+        <button type="submit" class="btn btn-outline-info">Submit</button>
+    </form>
+</div>
+<div class="container my-3">
+    <h2>Your Notes</h2>
+    {% if allnotes|length == 0 %}
+    <div class="alert alert-warning" role="alert">
+        No Records!
+    </div>
+    {% else %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Sno</th>
+                <th scope="col">Title</th>
+                <th scope="col">Desc</th>
+                <th scope="col">Date</th>
+                <th scope="col">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for note in allnotes %}
+            <tr>
+                <!-- <th scope="row">{{note.sno}}</th> -->
+                <th scope="row">{{loop.index}}</th>
+                <td>{{note.title}}</td>
+                <td>{{note.desc}}</td>
+                <td>{{note.date}}</td>
+                <td><a href="/update/{{note.sno}}"><button type="button"
+                            class="btn btn-outline-primary btn-sm mx-1">Update</button></a>
+                    <a href="/delete/{{note.sno}}"><button type="button"
+                            class="btn btn-outline-danger btn-sm mx-1">Delete</button></a>
+                </td>
+                <td></td>
+            </tr>
+
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+
+
+
+
+</div>
+{% endblock body %}
